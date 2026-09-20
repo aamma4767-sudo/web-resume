@@ -1,0 +1,739 @@
+/* =========================================================
+   Mithun Ram - one-page resume (desktop layout)
+   Change the colours and font below to restyle everything.
+   ========================================================= */
+:root {
+  --bg: #F5F3FC;
+  /* page background */
+  --panel: #FFFFFF;
+  /* right-hand card */
+  --ink: #1B1F4B;
+  /* main text */
+  --muted: #54577F;
+  /* small grey-blue text */
+  --line: #D9D6EE;
+  /* thin divider lines */
+  --accent: #F5A524;
+  /* marigold */
+  --accent-dark: #8F4A00;
+  /* accent used for text (easier to read) */
+  --hero: #1B1F4B;
+  /* header + footer background */
+  --hero-ink: #F5F3FC;
+  --hero-muted: #B9BBE0;
+  --font: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ---------- basics ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+dl,
+dd,
+figure {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+body {
+  background: #DCD8F0;
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* the "paper" sheet */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: var(--bg);
+  box-shadow: 0 24px 70px rgba(27, 31, 75, .25);
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+.hero {
+  background: var(--hero);
+  color: var(--hero-ink);
+  padding: 52px 52px 56px;
+}
+
+.hero a:focus-visible {
+  outline-color: var(--accent);
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 270px;
+  gap: 40px;
+  align-items: center;
+}
+
+.name {
+  font-size: clamp(3.4rem, 9vw, 6.6rem);
+  font-weight: 700;
+  line-height: .95;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+}
+
+.role {
+  margin-top: 1.3rem;
+  font-size: clamp(1.1rem, 2.6vw, 1.7rem);
+  font-weight: 500;
+  color: var(--hero-muted);
+}
+
+.tagline {
+  margin-top: .8rem;
+  font-size: clamp(1rem, 2.2vw, 1.5rem);
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-top: 1.8rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 1.4rem;
+  border: 2px solid var(--hero-muted);
+  border-radius: 999px;
+  color: var(--hero-ink);
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform .2s, background-color .2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, .08);
+}
+
+.btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--ink);
+}
+
+.btn.primary:hover {
+  background: #FFB93F;
+}
+
+/* photo in an arch, with a marigold arch behind it */
+.portrait {
+  position: relative;
+  margin-right: 14px;
+}
+
+.portrait::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translate(14px, 14px);
+  background: var(--accent);
+  border-radius: 999px 999px 24px 24px;
+}
+
+.frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 999px 999px 24px 24px;
+}
+
+.frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 0;
+  animation: reveal 1.7s cubic-bezier(.65, 0, .35, 1) .3s both;
+}
+
+/* the yellow "scan" line that reveals the photo */
+.scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: var(--accent);
+  box-shadow: 0 0 18px 4px rgba(245, 165, 36, .65);
+  animation:
+    sweep 1.7s cubic-bezier(.65, 0, .35, 1) .3s both,
+    scanoff .25s linear 1.95s both;
+}
+
+/* =========================================================
+   STRENGTHS BAND (scrolls sideways)
+   ========================================================= */
+.band {
+  background: var(--accent);
+  color: var(--ink);
+  overflow: hidden;
+  padding: .85rem 0;
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: slide 38s linear infinite;
+}
+
+.band:hover .marquee {
+  animation-play-state: paused;
+}
+
+.track {
+  display: flex;
+}
+
+.track li {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 500;
+}
+
+.track li::before {
+  content: "";
+  width: .55rem;
+  height: .55rem;
+  margin: 0 1.8rem;
+  background: currentColor;
+  transform: rotate(45deg);
+}
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 310px;
+  gap: 48px;
+  align-items: start;
+  padding: 36px 52px 52px;
+}
+
+h2 {
+  margin-bottom: .8rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.block {
+  padding: 1.8rem 0;
+  border-top: 2px solid var(--line);
+}
+
+.block:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.lead {
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.block p:not(.lead):not(.status):not(.college) {
+  font-size: 1.02rem;
+}
+
+/* skills */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+}
+
+.chips li {
+  padding: .45rem 1.15rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  font-weight: 500;
+  cursor: default;
+  transition: background-color .2s, border-color .2s, transform .2s;
+}
+
+.chips li:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-3px) rotate(-2deg);
+}
+
+/* areas of interest (2 x 2) */
+.interests {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .55rem 1.5rem;
+}
+
+.interests li {
+  position: relative;
+  padding-left: 1.6rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.interests li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .55em;
+  width: .7rem;
+  height: .7rem;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* education + sports + languages */
+.split {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 0 2rem;
+  border-top: 2px solid var(--line);
+}
+
+.split .block {
+  border-top: 0;
+  padding: 1.8rem 0 0;
+}
+
+.split>div>.block+.block {
+  padding-top: 1.4rem;
+}
+
+.college {
+  margin-top: .2rem;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  margin-top: .4rem;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+.dot {
+  flex: none;
+  width: .7rem;
+  height: .7rem;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2s ease-out infinite;
+}
+
+.stats {
+  display: flex;
+  margin-top: 1.1rem;
+}
+
+.stats li {
+  padding: 0 1.1rem;
+  border-left: 2px solid var(--line);
+}
+
+.stats li:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.stats strong {
+  display: block;
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--accent-dark);
+}
+
+.stats span {
+  font-size: .8rem;
+  color: var(--muted);
+}
+
+.sport {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.court {
+  position: relative;
+  flex: none;
+  width: 70px;
+  height: 120px;
+}
+
+.ball {
+  position: absolute;
+  left: 7px;
+  bottom: 12px;
+  width: 56px;
+  height: 56px;
+  transform-origin: 50% 100%;
+  animation: bounce 1.2s infinite;
+}
+
+.shade {
+  position: absolute;
+  left: 5px;
+  bottom: 3px;
+  width: 60px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ink);
+  animation: shade 1.2s infinite;
+}
+
+.plain li {
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+/* =========================================================
+   RIGHT-HAND CARD
+   ========================================================= */
+.panel {
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-radius: 24px;
+  padding: 1.9rem 1.8rem;
+}
+
+.panel section+section {
+  margin-top: 1.7rem;
+  padding-top: 1.7rem;
+  border-top: 2px solid var(--line);
+}
+
+.panel h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.facts>div+div {
+  margin-top: .9rem;
+}
+
+.facts dt {
+  font-size: .8rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.facts dd {
+  font-size: .98rem;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.facts a {
+  color: var(--accent-dark);
+  text-underline-offset: .2em;
+}
+
+address {
+  font-style: normal;
+  font-weight: 400;
+}
+
+.links li+li {
+  margin-top: .9rem;
+}
+
+.links a {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  transition: padding-left .25s;
+}
+
+.links a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform .25s;
+}
+
+.links a:hover,
+.links a:focus-visible {
+  padding-left: 1rem;
+}
+
+.links a:hover::before,
+.links a:focus-visible::before {
+  transform: scaleY(1);
+}
+
+.p-name {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.p-handle {
+  display: block;
+  font-size: .85rem;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.sign {
+  background: var(--hero);
+  padding: 2.6rem 52px;
+}
+
+.sign p {
+  color: var(--accent);
+  font-size: clamp(1.4rem, 3.6vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+@keyframes reveal {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes sweep {
+  from {
+    top: 0;
+  }
+
+  to {
+    top: calc(100% - 3px);
+  }
+}
+
+@keyframes scanoff {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slide {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(245, 165, 36, .7);
+  }
+
+  70%,
+  100% {
+    box-shadow: 0 0 0 12px rgba(245, 165, 36, 0);
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(-52px);
+    animation-timing-function: cubic-bezier(.5, 0, 1, .6);
+  }
+
+  46% {
+    transform: translateY(0) scale(1, 1);
+    animation-timing-function: linear;
+  }
+
+  50% {
+    transform: translateY(0) scale(1.14, .84);
+    animation-timing-function: linear;
+  }
+
+  54% {
+    transform: translateY(0) scale(1, 1);
+    animation-timing-function: cubic-bezier(0, .4, .5, 1);
+  }
+
+  100% {
+    transform: translateY(-52px);
+  }
+}
+
+@keyframes shade {
+
+  0%,
+  100% {
+    transform: scaleX(.45);
+    opacity: .12;
+  }
+
+  48% {
+    transform: scaleX(1.05);
+    opacity: .35;
+  }
+}
+
+/* people who turn animations off in their device settings */
+@media (prefers-reduced-motion: reduce) {
+
+  .frame img,
+  .scan,
+  .dot,
+  .ball,
+  .shade {
+    animation: none;
+  }
+
+  .scan {
+    display: none;
+  }
+
+  .marquee {
+    animation: none;
+    width: 100%;
+    padding: 0 1.25rem;
+  }
+
+  .track {
+    flex-wrap: wrap;
+    row-gap: .4rem;
+  }
+
+  .track[aria-hidden="true"] {
+    display: none;
+  }
+
+  .track li:first-child::before {
+    display: none;
+  }
+
+  .band {
+    overflow: visible;
+  }
+}
+
+/* =========================================================
+   SMALLER SCREENS (tablet / phone)
+   ========================================================= */
+@media (max-width: 900px) {
+  .hero {
+    padding: 36px 24px 48px;
+  }
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .portrait {
+    order: -1;
+    width: min(58vw, 240px);
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+    padding: 32px 24px 44px;
+    gap: 36px;
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+  }
+
+  .interests {
+    grid-template-columns: 1fr;
+  }
+
+  .sign {
+    padding: 2.2rem 24px;
+  }
+}
+
+/* =========================================================
+   PRINT (Ctrl+P -> Save as PDF, choose A4, margins: none)
+   ========================================================= */
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    max-width: none;
+    box-shadow: none;
+  }
+
+  .marquee {
+    animation: none;
+  }
+}
